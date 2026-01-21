@@ -1,8 +1,3 @@
-
-
-Aqui está o ficheiro `index.js` atualizado com a tradução para Português, atualização dos links, créditos, referências e alteração dos títulos conforme solicitado.
-
-```javascript
 // redeploy trigger - comment update
 import 'dotenv/config';
 import { Telegraf } from 'telegraf';
