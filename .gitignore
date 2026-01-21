@@ -1,0 +1,88 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Cache and data
+cache/
+data/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+
+# Production build
+/dist
+/build
+
+# Environment variables
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Debug logs
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editor directories and files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS generated files
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Vercel
+.vercel
+
+# Testing
+/coverage
+
+# Misc
+.env
+
+# Cache
+.cache/
+.temp/
+
+# Vite
+.vite/
+
+# Logs
+logs
+*.log
+
+# Telegram bot data
+telegram-bot/logs/
+telegram-bot/data/ 
+.vercel

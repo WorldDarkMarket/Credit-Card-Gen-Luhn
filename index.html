@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CardGen Pro - Generador avanzado de tarjetas con validación Luhn">
+    <meta name="theme-color" content="#7c3aed">
+    <title>CardGen Pro</title>
+    <link rel="icon" type="image/svg+xml" href="./src/assets/favicon.svg">
+    <link rel="stylesheet" href="./src/styles/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos específicos para mejorar la responsividad del header en index.html */
+        
+        /* Header responsive mejorado */
+        @media (max-width: 1024px) {
+            .header-content {
+                padding: 0.5rem 1.5rem;
+            }
+            
+            .header-right {
+                gap: 0.5rem;
+            }
+            
+            .nav-button {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.875rem;
+            }
+            
+            .nav-button span {
+                display: none;
+            }
+            
+            .nav-button i {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 0.5rem 1rem;
+            }
+            
+            .header-right {
+                gap: 0.25rem;
+            }
+            
+            .nav-button {
+                padding: 0.5rem;
+                min-width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .nav-button span {
+                display: none;
+            }
+            
+            .nav-button i {
+                font-size: 0.875rem;
+            }
+            
+            .telegram-link,
+            .github-link {
+                padding: 0.5rem;
+                min-width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .telegram-link i,
+            .github-link i {
+                font-size: 0.875rem;
+            }
+            
+            .favorite-header-button {
+                padding: 0.5rem;
+                min-width: 40px;
+                height: 40px;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .header-content {
+                padding: 0.5rem 0.75rem;
+            }
+            
+            .logo {
+                font-size: 1.25rem;
+            }
+            
+            .logo img {
+                height: 32px;
+                width: 32px;
+            }
+            
+            .header-right {
+                gap: 0.125rem;
+            }
+            
+            .nav-button {
+                padding: 0.375rem;
+                min-width: 36px;
+                height: 36px;
+            }
+            
+            .nav-button i {
+                font-size: 0.8125rem;
+            }
+            
+            .telegram-link,
+            .github-link {
+                padding: 0.375rem;
+                min-width: 36px;
+                height: 36px;
+            }
+            
+            .telegram-link i,
+            .github-link i {
+                font-size: 0.8125rem;
+            }
+            
+            .favorite-header-button {
+                padding: 0.375rem;
+                min-width: 36px;
+                height: 36px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header-content {
+                padding: 0.5rem 0.5rem;
+            }
+            
+            .logo {
+                font-size: 1.125rem;
+            }
+            
+            .logo img {
+                height: 28px;
+                width: 28px;
+            }
+            
+            .header-right {
+                gap: 0.125rem;
+            }
+            
+            .nav-button {
+                padding: 0.25rem;
+                min-width: 32px;
+                height: 32px;
+            }
+            
+            .nav-button i {
+                font-size: 0.75rem;
+            }
+            
+            .telegram-link,
+            .github-link {
+                padding: 0.25rem;
+                min-width: 32px;
+                height: 32px;
+            }
+            
+            .telegram-link i,
+            .github-link i {
+                font-size: 0.75rem;
+            }
+            
+            .favorite-header-button {
+                padding: 0.25rem;
+                min-width: 32px;
+                height: 32px;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .header-content {
+                padding: 0.5rem 0.25rem;
+            }
+            
+            .logo {
+                font-size: 1rem;
+            }
+            
+            .logo img {
+                height: 24px;
+                width: 24px;
+            }
+            
+            .header-right {
+                gap: 0.125rem;
+            }
+            
+            .nav-button {
+                padding: 0.25rem;
+                min-width: 28px;
+                height: 28px;
+            }
+            
+            .nav-button i {
+                font-size: 0.6875rem;
+            }
+            
+            .telegram-link,
+            .github-link {
+                padding: 0.25rem;
+                min-width: 28px;
+                height: 28px;
+            }
+            
+            .telegram-link i,
+            .github-link i {
+                font-size: 0.6875rem;
+            }
+            
+            .favorite-header-button {
+                padding: 0.25rem;
+                min-width: 28px;
+                height: 28px;
+            }
+        }
+        
+        /* Mejoras para el logo */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            font-weight: 600;
+            height: 100%;
+        }
+        
+        .logo img {
+            height: 40px;
+            width: auto;
+            transition: all 0.3s ease;
+        }
+        
+        .logo span {
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+        
+        /* Mejoras para los botones de navegación */
+        .nav-button {
+            transition: all 0.3s ease;
+            border-radius: var(--radius-md);
+        }
+        
+        .nav-button:hover {
+            transform: translateY(-1px);
+        }
+        
+        .telegram-link,
+        .github-link {
+            transition: all 0.3s ease;
+            border-radius: var(--radius-md);
+        }
+        
+        .telegram-link:hover,
+        .github-link:hover {
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body class="dark-theme">
+    <div class="background-animation">
+        <div class="gradient-sphere"></div>
+        <div class="gradient-sphere"></div>
+        <div class="gradient-sphere"></div>
+    </div>
+
+    <header class="header">
+        <div class="header-content">
+            <div class="header-left">
+                <span class="logo">
+                    <img src="/src/assets/logo.svg" alt="CardGen Pro Logo" width="40" height="40">
+                    <span>CardGen Pro</span>
+                </span>
+            </div>
+            <nav class="header-right">
+                <a href="bin-lookup.html" class="nav-button bin-lookup-button" title="Consultar BIN">
+                    <i class="fas fa-search" aria-hidden="true"></i>
+                    <span>Consultar BIN</span>
+                </a>
+                <a href="sri-lookup.html" class="nav-button sri-lookup-button" title="Consultar SRI">
+                    <i class="fas fa-id-card" aria-hidden="true"></i>
+                    <span>Consultar SRI</span>
+                </a>
+                <a href="temp-mail.html" class="nav-button temp-mail-button" title="Correo Temporal">
+                    <i class="fas fa-envelope-open-text" aria-hidden="true"></i>
+                    <span>Temp Mail</span>
+                </a>
+                <a href="ip-check.html" class="nav-button ip-check-button" title="IP Check">
+                    <i class="fas fa-globe" aria-hidden="true"></i>
+                    <span>IP Check</span>
+                </a>
+                <button id="open-favorites" class="nav-button favorite-header-button" title="Ver favoritos">
+                    <i class="fas fa-star"></i>
+                </button>
+                <a href="https://t.me/CardGen_Pro_BOT" class="telegram-link" target="_blank" rel="noopener noreferrer" title="Telegram Bot">
+                    <i class="fab fa-telegram" aria-hidden="true"></i>
+                    <span class="sr-only">Telegram</span>
+                </a>
+                <a href="https://github.com/mat1520" class="github-link" target="_blank" rel="noopener noreferrer" title="GitHub">
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                    <span class="sr-only">GitHub</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="generator-container">
+            <form id="card-generator-form" class="card-generator-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="bin">BIN</label>
+                        <div class="bin-input-container">
+                            <input type="text" id="bin" placeholder="Ingresa los dígitos (1-16)" maxlength="16" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="format">FORMAT</label>
+                        <select id="format" required>
+                            <option value="PIPE">PIPE (núm|mes|año|cvv)</option>
+                            <option value="CSV">CSV (núm,mes,año,cvv)</option>
+                            <option value="JSON">JSON</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="month">MONTH</label>
+                        <select id="month" required>
+                            <option value="random">Random</option>
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="year">YEAR</label>
+                        <select id="year" required>
+                            <option value="random">Random</option>
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
+                            <option value="2027">2027</option>
+                            <option value="2028">2028</option>
+                            <option value="2029">2029</option>
+                            <option value="2030">2030</option>
+                            <option value="2031">2031</option>
+                            <option value="2032">2032</option>
+                            <option value="2033">2033</option>
+                            <option value="2034">2034</option>
+                            <option value="2035">2035</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cvv">CVV</label>
+                        <input type="text" id="cvv" placeholder="Random" maxlength="3">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quantity">QTY</label>
+                        <select id="quantity" required>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="generate-button">
+                            <i class="fas fa-cog"></i>
+                            Generate
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="favorites-section">
+                <div class="favorites-header">
+                    <h3><i class="fas fa-star"></i> BINs Favoritos
+                        <button id="toggle-favorites-visibility" class="favorites-visibility-btn" title="Mostrar/Ocultar favoritos" style="background:none;border:none;outline:none;cursor:pointer;margin-left:8px;vertical-align:middle;">
+                            <i id="favorites-visibility-icon" class="fas fa-eye"></i>
+                        </button>
+                    </h3>
+                </div>
+                <div id="favorites-list" class="favorites-list">
+                    <!-- Los favoritos se agregarán aquí dinámicamente -->
+                </div>
+            </div>
+
+            <div class="results-section">
+                <div class="results-header">
+                    <h3><i class="fas fa-list"></i> Resultados</h3>
+                    <div class="results-actions">
+                        <div class="export-dropdown">
+                            <select id="export-format" class="format-select">
+                                <option value="txt">TXT</option>
+                                <option value="csv">CSV</option>
+                                <option value="json">JSON</option>
+                                <option value="xml">XML</option>
+                                <option value="sql">SQL</option>
+                            </select>
+                            <button id="export-button" class="export-button">
+                                <i class="fas fa-download"></i>
+                                Exportar
+                            </button>
+                        </div>
+                        <button class="action-button copy-button" title="Copiar al portapapeles">
+                            <i class="fas fa-copy"></i>
+                            Copiar
+                        </button>
+                        <button class="action-button reset-button" title="Limpiar resultados">
+                            <i class="fas fa-trash"></i>
+                            Limpiar
+                        </button>
+                    </div>
+                </div>
+                <textarea id="results" readonly placeholder="Los resultados se mostrarán aquí..."></textarea>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <div class="footer-project-info">
+                    <span class="project-name">CardGen Pro</span>
+                    <p class="project-description">Generador avanzado de tarjetas con funcionalidades de BIN lookup y herramientas de validación.</p>
+                </div>
+            </div>
+            
+            <div class="footer-center">
+                <div class="footer-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-code-branch" aria-hidden="true"></i>
+                        <span>v2.0.0</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <span>MIT License</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-right">
+                <a href="https://t.me/CardGen_Pro_BOT" class="footer-link" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-telegram" aria-hidden="true"></i>
+                    <span>Telegram</span>
+                </a>
+                <a href="https://github.com/mat520" class="footer-link" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                    <span>GitHub</span>
+                </a>
+                <a href="https://github.com/mat520/cardgen-pro/issues" class="footer-link" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-bug" aria-hidden="true"></i>
+                    <span>Issues</span>
+                </a>
+                <a href="https://github.com/mat520/cardgen-pro#readme" class="footer-link" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                    <span>Docs</span>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal-overlay" id="favorite-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-star"></i> Agregar a Favoritos</h3>
+                <button class="modal-close" id="close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form class="modal-form" id="favorite-form">
+                <div class="form-group">
+                    <label for="favorite-bin">BIN</label>
+                    <input type="text" id="favorite-bin">
+                </div>
+                <div class="form-group">
+                    <label for="favorite-name">Nombre (opcional)</label>
+                    <input type="text" id="favorite-name" maxlength="32" placeholder="Ej: Mi BIN de prueba">
+                </div>
+                <div class="form-group">
+                    <label for="favorite-month">Mes (opcional)</label>
+                    <select id="favorite-month">
+                        <option value="">Seleccionar mes</option>
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="favorite-year">Año (opcional)</label>
+                    <select id="favorite-year">
+                        <option value="">Seleccionar año</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                        <option value="2028">2028</option>
+                        <option value="2029">2029</option>
+                        <option value="2030">2030</option>
+                        <option value="2031">2031</option>
+                        <option value="2032">2032</option>
+                        <option value="2033">2033</option>
+                        <option value="2034">2034</option>
+                        <option value="2035">2035</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="favorite-cvv">CVV (opcional)</label>
+                    <input type="text" id="favorite-cvv" maxlength="3">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="modal-cancel">Cancelar</button>
+                    <button type="submit" class="modal-save">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="./src/js/app.js"></script>
+    <script type="module">
+        import { CardGenerator } from './src/js/app.js';
+        document.addEventListener('DOMContentLoaded', () => {
+            window.cardGenerator = new CardGenerator();
+        });
+    </script>
+</body>
+</html> 
